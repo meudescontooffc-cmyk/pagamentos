@@ -1,0 +1,1485 @@
+/* =====================================
+   🔥 BASE
+===================================== */
+* { box-sizing: border-box; }
+
+body {
+  background: #0a0a0a;
+  color: white;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  padding: 20px;
+  overflow-x: hidden;
+}
+
+/* =====================================
+   🔥 TITULO
+===================================== */
+h2 {
+  color: gold;
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 20px rgba(255,215,0,0.4);
+}
+
+/* =====================================
+   🔥 INPUT BUSCA
+===================================== */
+.codigo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 25px 0;
+  flex-wrap: wrap;
+}
+
+.codigo input {
+  width: 42px;
+  height: 52px;
+  text-align: center;
+  font-size: 20px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,215,0,0.3);
+  background: #141414;
+  color: white;
+  transition: 0.3s;
+}
+
+.codigo input:focus {
+  border-color: gold;
+  box-shadow: 0 0 14px rgba(255,215,0,0.4);
+  transform: scale(1.08);
+  outline: none;
+}
+
+/* =====================================
+   🔥 ESTADO
+===================================== */
+.estado-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.estado-box input {
+  width: 42px;
+  height: 52px;
+  text-transform: uppercase;
+}
+
+.estado-box select {
+  width: 42px;
+  padding: 4px;
+  border-radius: 6px;
+  border: 1px solid rgba(255,215,0,0.5);
+  background: #141414;
+  color: gold;
+  font-size: 11px;
+}
+
+/* =====================================
+   🔥 TRAÇO
+===================================== */
+.traco {
+  font-size: 28px;
+  color: gold;
+  opacity: 0.6;
+}
+
+/* =====================================
+   🔥 BOTÃO PRINCIPAL
+===================================== */
+.btn {
+  padding: 12px 28px;
+  border: none;
+  border-radius: 50px;
+  background: linear-gradient(135deg, #b8860b, #ffd700);
+  color: #111;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 4px 16px rgba(255,215,0,0.2);
+}
+
+.btn:hover {
+  transform: scale(1.04);
+  box-shadow: 0 6px 22px rgba(255,215,0,0.35);
+}
+
+/* =====================================
+   🔥 LINHA DIVISÓRIA
+===================================== */
+.linha {
+  width: 100vw;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255,215,0,0.4), transparent);
+  margin: 28px 0;
+  margin-left: calc(-50vw + 50%);
+}
+
+/* =====================================
+   🔥 MENU SCROLL
+===================================== */
+.menu-scroll {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 8px 2px 12px;
+  margin-bottom: 16px;
+  scrollbar-width: none;
+}
+
+.menu-scroll::-webkit-scrollbar { display: none; }
+
+/* =====================================
+   🔥 BOTÕES MENU — todos no tema ouro
+===================================== */
+.btn-menu {
+  min-width: 130px;
+  padding: 10px 16px;
+  border-radius: 50px;
+  background: #141414;
+  color: rgba(255,215,0,0.85);
+  border: 1px solid rgba(255,215,0,0.2);
+  cursor: pointer;
+  transition: 0.25s;
+  font-weight: bold;
+  font-size: 13px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.btn-menu:hover {
+  background: linear-gradient(135deg, #b8860b, #ffd700);
+  color: #111;
+  border-color: transparent;
+  box-shadow: 0 4px 16px rgba(255,215,0,0.25);
+  transform: translateY(-1px);
+}
+
+/* Empresas */
+.btn-menu-empresas {
+  border-color: rgba(255,215,0,0.35);
+}
+
+/* Premiações — ouro mais quente */
+.btn-menu-premiacoes {
+  border-color: rgba(255,200,0,0.4);
+  color: #ffd700;
+}
+
+/* Sorteios — ouro também, sem verde */
+.btn-menu-sorteios {
+  border-color: rgba(255,215,0,0.4);
+  color: #ffd700;
+}
+
+/* =====================================
+   🔥 TOPO NAVEGAÇÃO
+===================================== */
+.topo-navegacao {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 10px 0 20px 0;
+  background: #111;
+  border: 1px solid rgba(255,215,0,0.15);
+  padding: 12px 16px;
+  border-radius: 14px;
+  animation: fadeIn .25s ease;
+}
+
+#tituloSecao {
+  color: gold;
+  font-size: 14px;
+  font-weight: bold;
+  letter-spacing: 0.04em;
+}
+
+/* =====================================
+   🔥 BOTÃO VOLTAR
+===================================== */
+.btn-voltar {
+  border: 1px solid rgba(255,215,0,0.3);
+  background: transparent;
+  color: gold;
+  padding: 8px 16px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 13px;
+  transition: .3s;
+}
+
+.btn-voltar:hover {
+  background: gold;
+  color: #000;
+  border-color: transparent;
+}
+
+/* Voltar inline dentro da lista */
+.btn-voltar-inline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid rgba(255,215,0,0.25);
+  background: transparent;
+  color: rgba(255,215,0,0.8);
+  padding: 8px 18px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 13px;
+  transition: .3s;
+  margin-bottom: 14px;
+}
+
+.btn-voltar-inline:hover {
+  background: rgba(255,215,0,0.1);
+  color: gold;
+  border-color: rgba(255,215,0,0.5);
+}
+
+/* =====================================
+   🔥 LISTA PRINCIPAL
+===================================== */
+#lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* =====================================
+   🔥 CARD BASE
+===================================== */
+.card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: #111;
+  border: 1px solid rgba(255,215,0,0.1);
+  border-radius: 16px;
+  padding: 14px 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  animation: fadeIn .3s ease;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.card:hover {
+  border-color: rgba(255,215,0,0.25);
+  box-shadow: 0 4px 20px rgba(255,215,0,0.08);
+}
+
+/* Card premiação */
+.card-premiacao {
+  border-color: rgba(255,215,0,0.3);
+  background: linear-gradient(135deg, #111 80%, #1a1500);
+}
+
+/* Card sorteio — ouro suave, sem verde */
+.card-sorteio {
+  border-color: rgba(255,215,0,0.3);
+  background: linear-gradient(135deg, #111 80%, #141000);
+}
+
+/* =====================================
+   🔥 FOTO CLIENTE
+===================================== */
+.card img {
+  width: 56px;
+  height: 70px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 2px solid rgba(255,215,0,0.5);
+  flex-shrink: 0;
+}
+
+/* =====================================
+   🔥 INFO DENTRO DO CARD
+===================================== */
+.info {
+  flex: 1;
+  text-align: left;
+}
+
+.info h3 {
+  margin: 0 0 5px 0;
+  font-size: 15px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.info p {
+  margin: 3px 0;
+  font-size: 12px;
+  color: #bbb;
+  line-height: 1.45;
+}
+
+.info strong {
+  color: rgba(255,215,0,0.9);
+  font-weight: bold;
+}
+
+/* =====================================
+   🔥 STATUS
+===================================== */
+.status { font-weight: bold; font-size: 12px; }
+.ativo   { color: rgba(255,215,0,0.9); }
+.inativo { color: #666; }
+
+/* =====================================
+   🔥 TAGS
+===================================== */
+.tag-ativo {
+  display: inline-block;
+  color: rgba(255,215,0,0.9);
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.tag-inativo {
+  display: inline-block;
+  color: #444;
+  font-size: 11px;
+}
+
+/* =====================================
+   🔥 ÁREA DE AÇÃO
+===================================== */
+.acao {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 7px;
+  flex-shrink: 0;
+}
+
+/* =====================================
+   🔥 BOTÕES DE AÇÃO
+===================================== */
+.btn-acao {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 50px;
+  font-size: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: .25s;
+  white-space: nowrap;
+}
+
+.btn-acao:hover { transform: scale(1.05); }
+
+/* Dourado — principal */
+.btn-ativar {
+  background: linear-gradient(135deg, #b8860b, #ffd700);
+  color: #111;
+  box-shadow: 0 2px 8px rgba(255,215,0,0.2);
+}
+
+/* Vermelho — inativar */
+.btn-inativar {
+  background: linear-gradient(135deg, #8b0000, #cc2200);
+  color: #fff;
+}
+
+/* Escuro — secundário */
+.btn-detalhes {
+  background: #1c1c1c;
+  color: #ccc;
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Config — outline dourado */
+.btn-config {
+  padding: 7px 14px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .25s;
+  background: transparent;
+  color: rgba(255,215,0,0.8);
+  border: 1px solid rgba(255,215,0,0.35);
+  white-space: nowrap;
+}
+
+.btn-config:hover {
+  background: rgba(255,215,0,0.1);
+  color: gold;
+  border-color: gold;
+}
+
+/* =====================================
+   🔥 BOTÃO HISTÓRICO (três pontos) TOPO
+===================================== */
+.btn-historico-topo {
+  align-self: flex-end;
+  margin-left: auto;
+  padding: 8px 16px;
+  border: 1px solid rgba(255,215,0,0.25);
+  border-radius: 50px;
+  background: transparent;
+  color: rgba(255,215,0,0.7);
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .25s;
+  letter-spacing: 0.03em;
+}
+
+.btn-historico-topo:hover {
+  background: rgba(255,215,0,0.08);
+  color: gold;
+  border-color: rgba(255,215,0,0.5);
+}
+
+/* =====================================
+   🔥 BOTÃO VER MAIS
+===================================== */
+.btn-ver-mais {
+  width: 100%;
+  padding: 12px;
+  border: 1px dashed rgba(255,215,0,0.25);
+  border-radius: 50px;
+  background: transparent;
+  color: rgba(255,215,0,0.6);
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .25s;
+  margin-top: 4px;
+  letter-spacing: 0.03em;
+}
+
+.btn-ver-mais:hover {
+  background: rgba(255,215,0,0.06);
+  border-color: rgba(255,215,0,0.45);
+  color: gold;
+}
+
+/* =====================================
+   🔥 SEÇÃO TÍTULO
+===================================== */
+.secao-titulo {
+  font-size: 12px;
+  font-weight: bold;
+  color: rgba(255,215,0,0.7);
+  text-align: left;
+  padding: 5px 2px;
+  border-bottom: 1px solid rgba(255,215,0,0.1);
+  margin: 6px 0 10px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* =====================================
+   🔥 BADGE PREMIAÇÃO
+===================================== */
+.badge-premiacao {
+  display: inline-block;
+  background: linear-gradient(135deg, #7a5500, #c9a100);
+  color: #ffe066;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 3px 10px;
+  border-radius: 50px;
+  margin-top: 5px;
+  letter-spacing: 0.04em;
+  border: 1px solid rgba(255,215,0,0.3);
+}
+
+/* =====================================
+   🔥 PROGRESSO BAR (sorteio)
+===================================== */
+.progresso-wrap {
+  margin-top: 6px;
+}
+
+.progresso-label {
+  font-size: 11px;
+  color: #aaa;
+  margin-bottom: 4px;
+  text-align: left;
+}
+
+.progresso-bar {
+  width: 100%;
+  height: 4px;
+  background: #222;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progresso-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #7a5500, #ffd700);
+  border-radius: 4px;
+  transition: width .4s ease;
+}
+
+/* =====================================
+   🔥 MODAL
+===================================== */
+.modal {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  padding: 20px;
+}
+
+.modal-box {
+  width: 100%;
+  max-width: 520px;
+  max-height: 85vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: #111;
+  border: 1px solid rgba(255,215,0,0.15);
+  border-radius: 20px;
+  padding: 20px;
+  animation: fadeIn .25s ease;
+  box-sizing: border-box;
+}
+
+.modal-topo {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  border-bottom: 1px solid rgba(255,215,0,0.1);
+  padding-bottom: 14px;
+}
+
+.modal-topo h3 {
+  color: gold;
+  margin: 0;
+  font-size: 15px;
+  letter-spacing: 0.04em;
+}
+
+.fechar-modal {
+  width: 32px; height: 32px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 50%;
+  background: #1c1c1c;
+  color: #aaa;
+  cursor: pointer;
+  font-size: 14px;
+  transition: .3s;
+}
+
+.fechar-modal:hover {
+  background: #cc2200;
+  color: #fff;
+  border-color: transparent;
+}
+
+#conteudoModal {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.linha-historico {
+  background: #151515;
+  border: 1px solid rgba(255,215,0,0.08);
+  border-radius: 12px;
+  padding: 12px 14px;
+  text-align: left;
+}
+
+.linha-historico strong { color: rgba(255,215,0,0.85); }
+
+/* =====================================
+   🔥 PAINEL LATERAL CONFIG
+===================================== */
+.painel-config-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  z-index: 999;
+}
+
+.painel-config-box {
+  position: fixed;
+  top: 0;
+  right: -420px;
+  width: 380px;
+  max-width: 96vw;
+  height: 100vh;
+  background: #0f0f0f;
+  color: #fff;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -8px 0 40px rgba(0,0,0,0.6);
+  border-left: 1px solid rgba(255,215,0,0.2);
+  transition: right .32s cubic-bezier(.4,0,.2,1);
+}
+
+.painel-config-box.aberto { right: 0; }
+
+.painel-config-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 22px 20px 16px;
+  border-bottom: 1px solid rgba(255,215,0,0.1);
+  flex-wrap: wrap;
+}
+
+.painel-config-header h3 {
+  margin: 0;
+  font-size: 14px;
+  color: gold;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.painel-config-nome {
+  font-size: 12px;
+  color: #888;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.painel-config-fechar {
+  width: 30px; height: 30px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 50%;
+  background: #1c1c1c;
+  color: #aaa;
+  cursor: pointer;
+  font-size: 13px;
+  transition: .3s;
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.painel-config-fechar:hover {
+  background: #cc2200;
+  color: #fff;
+  border-color: transparent;
+}
+
+.painel-config-body {
+  flex: 1;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow-y: auto;
+}
+
+.painel-config-body label {
+  font-size: 11px;
+  font-weight: bold;
+  color: rgba(255,215,0,0.7);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-top: 8px;
+}
+
+.painel-config-body input {
+  padding: 10px 13px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,215,0,0.2);
+  background: #161616;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: border .2s, box-shadow .2s;
+  width: 100%;
+}
+
+.painel-config-body input:focus {
+  border-color: rgba(255,215,0,0.6);
+  box-shadow: 0 0 10px rgba(255,215,0,0.15);
+}
+
+.painel-config-body small {
+  color: #555;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.painel-config-footer {
+  padding: 14px 20px 28px;
+  border-top: 1px solid rgba(255,215,0,0.1);
+}
+
+.painel-config-footer .btn-acao {
+  width: 100%;
+  padding: 13px;
+  font-size: 14px;
+  border-radius: 50px;
+}
+
+/* =====================================
+   🔥 SEÇÕES CONFIG
+===================================== */
+.config-secao {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: #141414;
+  border: 1px solid rgba(255,215,0,0.08);
+  border-radius: 12px;
+  padding: 14px;
+  margin-top: 10px;
+}
+
+.config-secao-titulo {
+  font-size: 11px;
+  font-weight: bold;
+  color: gold;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+  border-bottom: 1px solid rgba(255,215,0,0.08);
+  padding-bottom: 6px;
+}
+
+.config-toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.config-toggle-row label:first-child {
+  font-size: 13px;
+  color: #ccc;
+  text-transform: none;
+  letter-spacing: 0;
+  font-weight: normal;
+}
+
+/* =====================================
+   🔥 TOGGLE SWITCH
+===================================== */
+.toggle {
+  position: relative;
+  display: inline-block;
+  width: 42px;
+  height: 22px;
+  flex-shrink: 0;
+}
+
+.toggle input { opacity: 0; width: 0; height: 0; }
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background: #222;
+  border-radius: 22px;
+  transition: .3s;
+  border: 1px solid rgba(255,215,0,0.15);
+}
+
+.slider:before {
+  content: "";
+  position: absolute;
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background: #555;
+  border-radius: 50%;
+  transition: .3s;
+}
+
+.toggle input:checked + .slider {
+  background: rgba(255,215,0,0.15);
+  border-color: rgba(255,215,0,0.6);
+}
+
+.toggle input:checked + .slider:before {
+  background: gold;
+  transform: translateX(20px);
+}
+
+/* =====================================
+   🔥 CARD HISTÓRICO (dentro da lista)
+===================================== */
+.card-historico {
+  background: #111;
+  border: 1px solid rgba(255,215,0,0.08);
+  border-radius: 14px;
+  padding: 14px 16px;
+  text-align: left;
+  animation: fadeIn .3s ease;
+  transition: border-color .2s;
+}
+
+.card-historico:hover {
+  border-color: rgba(255,215,0,0.2);
+}
+
+.card-historico h3 {
+  margin: 0 0 5px 0;
+  font-size: 14px;
+  color: #fff;
+}
+
+.card-historico p {
+  margin: 3px 0;
+  font-size: 12px;
+  color: #999;
+}
+
+.card-historico .hist-data {
+  font-size: 11px;
+  color: rgba(255,215,0,0.5);
+  margin-top: 6px;
+}
+
+/* =====================================
+   🔥 UTILITÁRIOS
+===================================== */
+.hidden { display: none !important; }
+
+/* =====================================
+   🔥 ANIMAÇÃO
+===================================== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* =====================================
+   🔥 RESPONSIVO
+===================================== */
+@media (max-width: 700px) {
+  .card { align-items: flex-start; }
+  .acao { align-self: flex-end; }
+  .btn-acao { padding: 7px 12px; font-size: 11px; }
+  .info h3 { font-size: 14px; }
+  .info p  { font-size: 12px; }
+  .painel-config-box {
+    width: 100vw;
+    border-left: none;
+    border-top: 1px solid rgba(255,215,0,0.2);
+  }
+  .btn-historico-topo {
+    font-size: 12px;
+    padding: 7px 13px;
+  }
+}
+
+/* =====================================
+   ✨ MODAL GERAR CÓDIGO
+===================================== */
+.modal-box-gerar {
+  max-width: 460px;
+  width: 92%;
+  max-height: 88vh;
+  overflow-y: auto;
+}
+
+.form-gerar {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 20px;
+}
+
+.form-grupo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+}
+
+.form-grupo label {
+  font-size: 12px;
+  font-weight: 700;
+  color: gold;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.form-grupo input[type="text"],
+.form-grupo input[type="date"],
+.form-grupo input[type="tel"],
+.form-grupo select {
+  background: #141414;
+  border: 1px solid rgba(255,215,0,0.3);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: white;
+  font-size: 14px;
+  outline: none;
+  transition: 0.25s;
+  width: 100%;
+}
+
+.form-grupo input:focus,
+.form-grupo select:focus {
+  border-color: gold;
+  box-shadow: 0 0 14px rgba(255,215,0,0.25);
+}
+
+.form-grupo select option {
+  background: #141414;
+  color: white;
+}
+
+/* Plano */
+.plano-opcoes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  min-width: 0;
+}
+
+.plano-btn {
+  background: #141414;
+  border: 1px solid rgba(255,215,0,0.25);
+  border-radius: 12px;
+  padding: 14px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: 0.25s;
+  color: white;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+.plano-btn:hover {
+  border-color: rgba(255,215,0,0.6);
+  background: #1c1c1c;
+}
+
+.plano-btn.selecionado {
+  border-color: gold;
+  background: linear-gradient(135deg, rgba(184,134,11,0.18), rgba(255,215,0,0.1));
+  box-shadow: 0 0 16px rgba(255,215,0,0.25);
+}
+
+.plano-nome {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: gold;
+}
+
+.plano-opcoes-3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.plano-btn-neutro {
+  border-style: dashed;
+  border-color: rgba(170,170,170,0.4);
+}
+
+.plano-btn-neutro:hover {
+  border-color: rgba(170,170,170,0.7);
+}
+
+.plano-btn-neutro.selecionado {
+  border-color: #bbb;
+  border-style: solid;
+  background: linear-gradient(135deg, rgba(120,120,120,0.18), rgba(200,200,200,0.08));
+  box-shadow: 0 0 16px rgba(200,200,200,0.2);
+}
+
+.plano-btn-neutro .plano-nome {
+  color: #ccc;
+}
+
+.plano-aviso {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  line-height: 1.4;
+  color: #aaa;
+}
+
+/* Upload de foto */
+.foto-upload-wrap {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.foto-preview {
+  width: 64px;
+  height: 64px;
+  border-radius: 10px;
+  object-fit: cover;
+  background: #141414;
+  border: 1px solid rgba(255,215,0,0.3);
+  flex-shrink: 0;
+}
+
+.foto-upload-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  text-align: left;
+}
+
+.foto-upload-info input[type="file"] {
+  color: white;
+  font-size: 12px;
+}
+
+.foto-upload-info small {
+  color: #888;
+  font-size: 11px;
+}
+
+.foto-status {
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.foto-status.ok    { color: #4caf50; }
+.foto-status.erro  { color: #ff5252; }
+.foto-status.carregando { color: gold; }
+
+/* Footer do modal gerar */
+.modal-footer-gerar {
+  padding: 16px 20px 22px;
+  border-top: 1px solid rgba(255,215,0,0.15);
+}
+
+.btn-gerar-confirmar {
+  width: 100%;
+  padding: 14px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* =====================================
+   💳 BOTÃO DE PAGAMENTO (lista/cards)
+===================================== */
+.btn-pagamento {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  border: none;
+  border-radius: 30px;
+  background: linear-gradient(135deg, #0d7d3e, #1fae5c);
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 0.25s;
+  box-shadow: 0 4px 14px rgba(31,174,92,0.25);
+}
+
+.btn-pagamento:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(31,174,92,0.4);
+}
+
+/* =====================================
+   💳 SUBMENU PAGAMENTOS (Pendentes / Pago)
+===================================== */
+.submenu-pagamentos {
+  display: flex;
+  gap: 10px;
+  margin: 4px 0 18px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.subbtn-pagamento {
+  padding: 10px 22px;
+  border-radius: 30px;
+  border: 1px solid rgba(255,215,0,0.25);
+  background: #141414;
+  color: #ccc;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.subbtn-pagamento:hover {
+  border-color: rgba(255,215,0,0.5);
+  color: white;
+}
+
+.subbtn-pagamento.ativo {
+  background: linear-gradient(135deg, #b8860b, #ffd700);
+  color: #111;
+  border-color: gold;
+  box-shadow: 0 0 14px rgba(255,215,0,0.35);
+}
+
+/* Card de pagamento */
+.card-pagamento {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.tag-pendente {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255,82,82,0.12);
+  border: 1px solid rgba(255,82,82,0.35);
+  color: #ff5252;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+.tag-pago {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(76,175,80,0.12);
+  border: 1px solid rgba(76,175,80,0.35);
+  color: #4caf50;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 20px;
+}
+
+/* =========================================
+   📅 MODAL PLANOS DO CLIENTE
+========================================= */
+
+.modal-box-planos {
+  max-width: 480px;
+  box-sizing: border-box;
+}
+
+.modal-box-planos * {
+  box-sizing: border-box;
+}
+
+.btn-planos {
+  font-size: 12px;
+}
+
+.planos-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #ccc;
+  margin-bottom: 8px;
+  letter-spacing: 0.02em;
+}
+
+.planos-grid-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+  min-width: 0;
+}
+
+.planos-info-box {
+  background: #161616;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.planos-info-label {
+  font-size: 11px;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.planos-info-valor {
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.planos-ajuste-linha {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+}
+
+.planos-ajuste-linha input[type="number"] {
+  background: #161616;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  color: #fff;
+  padding: 10px 12px;
+  font-size: 14px;
+  width: 100%;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.planos-ajuste-linha input[type="number"]:focus {
+  outline: none;
+  border-color: rgba(255,215,0,0.5);
+}
+
+.planos-ajuste-linha .btn-acao {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.planos-hist-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 180px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.planos-hist-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  background: #161616;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 12px;
+}
+
+.planos-hist-plano {
+  font-weight: 700;
+  color: gold;
+  flex: 1;
+}
+
+.planos-hist-dias {
+  color: #4caf50;
+  font-weight: 600;
+}
+
+.planos-hist-data {
+  color: #888;
+  font-family: monospace;
+  font-size: 11px;
+}
+
+.planos-hist-vazio {
+  list-style: none;
+  color: #666;
+  font-size: 12px;
+  text-align: center;
+  padding: 14px 0;
+}
+
+.planos-preview {
+  background: #161616;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  transition: border-color .25s, background .25s;
+}
+
+.planos-preview-ativo {
+  border-color: rgba(255,215,0,0.4);
+  background: rgba(255,215,0,0.05);
+}
+
+.planos-preview-linha {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 13px;
+  color: #ddd;
+}
+
+.planos-footer-acoes {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.planos-footer-acoes .btn-acao {
+  flex: 1;
+  text-align: center;
+}
+
+.planos-footer-acoes .btn-acao:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* =========================================
+   📡 RASTREAMENTO — QR Code por empresa (modal individual)
+========================================= */
+
+.modal-box-rastreamento {
+  max-width: 440px;
+  box-sizing: border-box;
+}
+
+.modal-box-rastreamento * {
+  box-sizing: border-box;
+}
+
+.rastreio-status-linha {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: #ccc;
+  margin-top: 4px;
+}
+
+/* Toggle switch (ativar/desativar rastreamento) */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #3a3a3a;
+  border-radius: 24px;
+  transition: .25s;
+}
+
+.toggle-slider::before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: #fff;
+  border-radius: 50%;
+  transition: .25s;
+}
+
+.toggle-switch input:checked + .toggle-slider {
+  background-color: #2e7d32;
+}
+
+.toggle-switch input:checked + .toggle-slider::before {
+  transform: translateX(20px);
+}
+
+.rastreio-qr-centro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+}
+
+.rastreio-qr-wrap {
+  flex-shrink: 0;
+  background: #fff;
+  padding: 10px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 210px;
+}
+
+.rastreio-qr-wrap canvas {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.rastreio-link-linha {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+  width: 100%;
+}
+
+.rastreio-link-linha input {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+  background: #161616;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px;
+  color: #999;
+  padding: 10px 12px;
+  font-size: 11px;
+  font-family: monospace;
+  cursor: pointer;
+}
+
+.rastreio-link-linha .btn-acao {
+  flex: 0 0 auto;
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+.rastreio-acoes {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.rastreio-acoes .btn-acao {
+  flex: 1 1 auto;
+  white-space: nowrap;
+  text-align: center;
+}

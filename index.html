@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Login Empresa</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #0f0f0f, #1c1c1c);
+  padding: 15px;
+}
+
+.login-container {
+  background: #111;
+  padding: 35px 25px;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 350px;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.2);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.login-container h2 {
+  text-align: center;
+  color: gold;
+  margin-bottom: 25px;
+  font-size: 20px;
+}
+
+.login-container input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  background: #1c1c1c;
+  color: #fff;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  font-size: 14px;
+}
+
+.login-container input:focus {
+  border-color: gold;
+  box-shadow: 0 0 8px gold;
+  outline: none;
+}
+
+.senha-box {
+  position: relative;
+}
+
+.senha-box input {
+  padding-right: 40px;
+}
+
+.olho {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: gold;
+  font-size: 18px;
+}
+
+.login-container button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(45deg, #c9a100, #ffd700);
+  color: #000;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 15px;
+}
+
+.login-container button:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 10px gold;
+}
+
+#msg {
+  text-align: center;
+  margin-top: 10px;
+  color: #fff;
+  font-size: 13px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="login-container">
+  <h2>Área do Sistema</h2>
+
+  <input type="text" id="empresa" placeholder="Nome" autocomplete="off">
+
+  <div class="senha-box">
+    <input type="password" id="senha" placeholder="Senha" autocomplete="off">
+    <span class="olho" onclick="toggleSenha()">◉</span>
+  </div>
+
+  <button onclick="login()">Entrar</button>
+
+  <p id="msg"></p>
+</div>
+
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+const firebaseConfig = {
+  apiKey:  "AIzaSyAdDrbZHf93zdvY3TqdUYkqTcFOJmJhLw4",
+  authDomain:  "rastreamento-ad456.firebaseapp.com",
+  projectId: "rastreamento-ad456",
+  appId: "1:212558087501:web:a00e808856f7e80ae62304"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// 👁️ MOSTRAR / OCULTAR SENHA
+window.toggleSenha = function () {
+  const senha = document.getElementById("senha");
+  senha.type = senha.type === "password" ? "text" : "password";
+};
+
+// 🔥 GERAR EMAIL AUTOMÁTICO
+function gerarEmail(nome){
+  return nome
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, "_")
+    .replace(/[^a-z0-9_]/g, "") 
+    + "@gmail.com";
+}
+
+// 🚀 LOGIN
+window.login = async function () {
+
+  const nomeInput = document.getElementById("empresa").value.trim();
+  const senha = document.getElementById("senha").value;
+  const msg = document.getElementById("msg");
+
+  const soNumeros = /^[0-9]+$/.test(senha);
+  const tamanhoOk = senha.length >= 6 && senha.length <= 8;
+
+  if (!soNumeros || !tamanhoOk) {
+    msg.innerText = "Senha deve ter de 6 a 8 números";
+    return;
+  }
+
+  if (!nomeInput) {
+    msg.innerText = "Digite o nome";
+    return;
+  }
+
+  try {
+
+    msg.innerText = "Entrando...";
+
+    // 🔥 GERAR EMAIL
+    const emailGerado = gerarEmail(nomeInput);
+
+    // 🔐 LOGIN FIREBASE
+    await setPersistence(auth, browserLocalPersistence);
+    await signInWithEmailAndPassword(auth, emailGerado, senha);
+
+    // 🔥 PEGAR USUÁRIO LOGADO
+    const user = auth.currentUser;
+
+    // 🔥 BUSCAR DADOS DA EMPRESA
+    const empresaRef = doc(db, "empresas", user.uid);
+    const empresaSnap = await getDoc(empresaRef);
+
+    if (!empresaSnap.exists()) {
+      msg.innerText = "Empresa não encontrada ❌";
+      return;
+    }
+
+    const usuario = empresaSnap.data();
+
+    // 🔥 LIBERAR ACESSO
+    localStorage.setItem("acessoPermitido", "true");
+
+    msg.innerText = "Login realizado ✅";
+
+    // 🚀 REDIRECIONAMENTO
+    if (usuario.tipo === "admin") {
+      window.location.href = "admin.html";
+    } else {
+      window.location.href = "empresa.html";
+    }
+
+  } catch (erro) {
+    console.error(erro);
+    msg.innerText = "Dados inválidos ❌";
+  }
+
+};
+
+</script>
+
+</body>
+</html>

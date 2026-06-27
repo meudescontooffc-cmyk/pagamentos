@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ADM</title>
+  <link rel="stylesheet" href="admin.css">
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+  <style>
+    /* Botão ativo do menu — dourado persistente */
+    .btn-menu.active {
+      background: #FFD700 !important;
+      color: #111 !important;
+      border-color: #FFD700 !important;
+      box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+
+  <h2 id="tituloPagina">Painel ADM</h2>
+
+  <!-- =====================================
+       🔍 BUSCA
+  ===================================== -->
+  <div class="codigo">
+    <div class="estado-box">
+      <input id="estado" maxlength="2" placeholder="UF" autocomplete="off">
+      <select id="listaEstados">
+        <option value="">UF</option>
+        <option>MA</option>
+        <option>SP</option>
+        <option>RJ</option>
+        <option>CE</option>
+      </select>
+    </div>
+    <span class="traco">-</span>
+    <input id="c1" maxlength="1" inputmode="numeric">
+    <input id="c2" maxlength="1" inputmode="numeric">
+    <input id="c3" maxlength="1" inputmode="numeric">
+    <input id="c4" maxlength="1" inputmode="numeric">
+    <input id="c5" maxlength="1" inputmode="numeric">
+    <input id="c6" maxlength="1" inputmode="numeric">
+  </div>
+
+  <button class="btn" id="btn-buscar" onclick="buscar('btn-buscar')">Procurar usuário</button>
+
+  <div class="linha"></div>
+
+  <!-- =====================================
+       🔥 MENU
+  ===================================== -->
+  <div class="menu-scroll">
+
+    <button class="btn-menu" id="btn-ativos"      onclick="verAtivos('btn-ativos')">Ativos</button>
+    <button class="btn-menu" id="btn-inativos"    onclick="verInativos('btn-inativos')">Inativos</button>
+    <button class="btn-menu" id="btn-validacoes"  onclick="verValidacoes('btn-validacoes')">Validações</button>
+    <button class="btn-menu btn-menu-empresas"    id="btn-empresas"    onclick="verEmpresas('btn-empresas')">Empresas</button>
+    <button class="btn-menu btn-menu-premiacoes"  id="btn-premiacoes"  onclick="verPremiacoes('btn-premiacoes')"> Premiações</button>
+    <button class="btn-menu btn-menu-sorteios"    id="btn-sorteios"    onclick="verSorteios('btn-sorteios')"> Sorteios</button>
+    <button class="btn-menu" id="btn-gerar"       onclick="gerarCodigo()">Gerar Código</button>
+    <button class="btn-menu" id="btn-pagamentos"  onclick="verPagamentos('btn-pagamentos')">Pagamentos</button>
+    <button class="btn-menu" id="btn-todos"       onclick="listarClientes('btn-todos')">Todos</button>
+
+  </div>
+
+  <!-- =====================================
+       🔥 TOPO NAVEGAÇÃO
+  ===================================== -->
+  <div id="topoNavegacao" class="topo-navegacao hidden">
+    <button class="btn-voltar" onclick="history.back()">← Voltar</button>
+    <div id="tituloSecao">Empresas</div>
+  </div>
+
+  <!-- =====================================
+       🔥 LISTA PRINCIPAL
+  ===================================== -->
+  <div id="lista"></div>
+
+  <!-- =====================================
+       📡 MODAL RASTREAMENTO DA EMPRESA
+  ===================================== -->
+  <div id="modalRastreamento" class="modal hidden">
+    <div class="modal-box modal-box-rastreamento">
+      <div class="modal-topo">
+        <h3>Rastreamento</h3>
+        <button class="fechar-modal" onclick="fecharModalRastreamento()">✕</button>
+      </div>
+      <div id="conteudoRastreamento"></div>
+    </div>
+  </div>
+
+  <!-- =====================================
+       💬 MODAL WHATSAPP DO CLUBE (GERAL)
+  ===================================== -->
+  <div id="modalWhatsappClube" class="modal hidden">
+    <div class="modal-box">
+      <div class="modal-topo">
+        <h3>WhatsApp do Clube</h3>
+        <button class="fechar-modal" onclick="fecharModalWhatsappClube()">✕</button>
+      </div>
+      <div class="form-gerar">
+        <div class="form-grupo">
+          <label>Número de WhatsApp (DDI+DDD+número)</label>
+          <input type="text" id="whatsapp-clube-input" placeholder="Ex: 5599999999999">
+          <small style="color:#666;font-size:11px;display:block;margin-top:6px;">Esse é o número que vai receber todos os leads de rastreamento, de todas as empresas.</small>
+        </div>
+      </div>
+      <div class="modal-footer-gerar">
+        <button class="btn-acao btn-ativar" onclick="salvarWhatsappClube()">Salvar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================
+       📅 MODAL PLANOS DO CLIENTE
+  ===================================== -->
+  <div id="modalPlanos" class="modal hidden">
+    <div class="modal-box modal-box-planos">
+      <div class="modal-topo">
+        <h3>Planos do Cliente</h3>
+        <button class="fechar-modal" onclick="fecharModalPlanos()">✕</button>
+      </div>
+      <div id="conteudoPlanos"></div>
+    </div>
+  </div>
+
+  <!-- =====================================
+       🔥 MODAL GERAR CÓDIGO (NOVO CLIENTE)
+  ===================================== -->
+  <div id="modalGerarCodigo" class="modal hidden">
+    <div class="modal-box modal-box-gerar">
+      <div class="modal-topo">
+        <h3>✨ Novo Cliente</h3>
+        <button class="fechar-modal" onclick="fecharModalGerar()">✕</button>
+      </div>
+
+      <div class="form-gerar">
+
+        <div class="form-grupo">
+          <label>Nome completo</label>
+          <input type="text" id="gc-nome" placeholder="Ex: João da Silva" maxlength="100">
+        </div>
+
+        <div class="form-grupo">
+          <label>Data de nascimento</label>
+          <input type="text" id="gc-nascimento" placeholder="Ex: 15/03/1990" maxlength="10">
+        </div>
+
+        <div class="form-grupo">
+          <label>Telefone</label>
+          <input type="tel" id="gc-telefone" placeholder="(99) 99999-9999" maxlength="15">
+        </div>
+
+        <div class="form-grupo">
+          <label>Plano</label>
+          <div class="plano-opcoes plano-opcoes-3">
+            <button type="button" class="plano-btn" id="plano-mensal" onclick="selecionarPlano('mensal')">
+              <span class="plano-nome">Mensal</span>
+              <span class="plano-preco">R$ 19,90</span>
+            </button>
+            <button type="button" class="plano-btn" id="plano-anual" onclick="selecionarPlano('anual')">
+              <span class="plano-nome">Anual</span>
+              <span class="plano-preco">R$ 149,90</span>
+            </button>
+            <button type="button" class="plano-btn plano-btn-neutro" id="plano-pendente" onclick="selecionarPlano('pendente')">
+              <span class="plano-nome">Pendente</span>
+              <span class="plano-preco">0 dias</span>
+            </button>
+          </div>
+          <small id="plano-pendente-aviso" class="plano-aviso hidden">
+            Gera o ID do cliente sem dias e <strong>inativo</strong>. Use quando o pagamento (Pix/Cartão) será feito depois, pelo site de pagamento. Ative manualmente após a confirmação.
+          </small>
+        </div>
+
+        <div class="form-grupo">
+          <label>Link da foto</label>
+          <div class="foto-upload-wrap">
+            <img id="gc-foto-preview" class="foto-preview" src="" alt="">
+            <div class="foto-upload-info">
+              <input type="text" id="gc-foto-link" placeholder="https://exemplo.com/foto.jpg" oninput="previewFotoLink(event)">
+              <small>Cole o link direto da imagem (JPG ou PNG)</small>
+              <div id="gc-foto-status" class="foto-status"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-grupo">
+          <label>UF do cliente</label>
+          <select id="gc-uf">
+            <option value="">UF</option>
+            <option>MA</option>
+            <option>SP</option>
+            <option>RJ</option>
+            <option>CE</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="modal-footer-gerar">
+        <button class="btn-acao btn-ativar btn-gerar-confirmar" onclick="confirmarGerarCodigo()">
+          Gerar código do cliente
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="admin.js"></script>
+
+</body>
+</html>

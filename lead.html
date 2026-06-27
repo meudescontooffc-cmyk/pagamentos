@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Continuar no WhatsApp</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html, body {
+    min-height: 100vh;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    background: radial-gradient(circle at top, #141414 0%, #070707 45%, #000 100%);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 20px;
+    text-align: center;
+    overflow-x: hidden;
+  }
+
+  /* ---------- Nome da empresa ---------- */
+  .empresa-nome {
+    font-size: clamp(24px, 7vw, 34px);
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    color: #FFD700;
+    text-shadow: 0 0 22px rgba(255,215,0,0.35);
+    opacity: 0;
+    transform: translateY(-10px);
+    animation: entrarTopo .6s ease forwards;
+    max-width: 92vw;
+    overflow-wrap: break-word;
+  }
+
+  .empresa-sub {
+    margin-top: 6px;
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 0.04em;
+    opacity: 0;
+    animation: entrarTopo .6s ease forwards;
+    animation-delay: .08s;
+  }
+
+  @keyframes entrarTopo {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ---------- Selo / logo RS ---------- */
+  .selo-rs {
+    margin: 30px 0 26px;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,215,0,0.55);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 18px;
+    letter-spacing: 0.06em;
+    color: #FFD700;
+    background: radial-gradient(circle, rgba(255,215,0,0.08), transparent 70%);
+    box-shadow: 0 0 26px rgba(255,215,0,0.12);
+    opacity: 0;
+    animation: entrarSelo .6s ease forwards;
+    animation-delay: .16s;
+  }
+
+  @keyframes entrarSelo {
+    from { opacity: 0; transform: scale(.8); }
+    to   { opacity: 1; transform: scale(1); }
+  }
+
+  /* ---------- Cartão ---------- */
+  .cartao {
+    width: 100%;
+    max-width: 340px;
+    background: #111;
+    border: 1px solid rgba(255,215,0,0.18);
+    border-radius: 18px;
+    padding: 26px 22px;
+    box-shadow: 0 0 30px rgba(255,215,0,0.08);
+    opacity: 0;
+    animation: entrarCartao .55s ease forwards;
+    animation-delay: .26s;
+  }
+
+  @keyframes entrarCartao {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .cartao p.instrucao {
+    font-size: 14px;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 18px;
+    line-height: 1.5;
+  }
+
+  .campo-nome {
+    width: 100%;
+    padding: 13px 14px;
+    border-radius: 10px;
+    background: #1a1a1a;
+    border: 1px solid rgba(255,215,0,0.22);
+    color: #fff;
+    font-size: 15px;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+  }
+
+  .campo-nome::placeholder { color: #777; }
+
+  .campo-nome:focus {
+    border-color: gold;
+    box-shadow: 0 0 10px rgba(255,215,0,0.25);
+  }
+
+  .btn-continuar {
+    width: 100%;
+    margin-top: 14px;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(45deg, #1f7a3d, #25d366);
+    color: #06210f;
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    transition: transform .2s, box-shadow .2s, opacity .2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  .btn-continuar:hover { transform: scale(1.02); box-shadow: 0 0 16px rgba(37,211,102,0.35); }
+  .btn-continuar:disabled { opacity: .55; cursor: not-allowed; transform: none; box-shadow: none; }
+
+  .erro-msg {
+    margin-top: 10px;
+    font-size: 12.5px;
+    color: #ff5252;
+    min-height: 16px;
+  }
+
+  .rodape {
+    margin-top: 26px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.25);
+    letter-spacing: 0.03em;
+  }
+
+  /* ---------- Estados de carregamento / erro geral ---------- */
+  .estado-tela {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .estado-tela p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  .spinner {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    border: 3px solid rgba(255,215,0,0.18);
+    border-top-color: gold;
+    animation: girar .8s linear infinite;
+  }
+
+  @keyframes girar { to { transform: rotate(360deg); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+    .empresa-nome, .empresa-sub, .selo-rs, .cartao { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Carregando / erro -->
+  <div id="estadoInicial" class="estado-tela">
+    <div class="spinner"></div>
+    <p>Carregando...</p>
+  </div>
+
+  <!-- Conteúdo principal (preenchido após carregar a empresa) -->
+  <div id="conteudoLead" style="display:none; width:100%; display:flex; flex-direction:column; align-items:center;">
+    <h1 class="empresa-nome" id="nomeEmpresa">Empresa</h1>
+    <p class="empresa-sub">Atendimento via WhatsApp</p>
+
+    <div class="selo-rs">RS</div>
+
+    <div class="cartao">
+      <p class="instrucao">Digite seu nome para continuar a conversa no WhatsApp:</p>
+      <input type="text" id="nomeLead" class="campo-nome" placeholder="Seu nome" autocomplete="off" maxlength="60">
+      <button class="btn-continuar" id="btnContinuar" onclick="continuar()">
+        Continuar
+      </button>
+      <p class="erro-msg" id="erroMsg"></p>
+    </div>
+
+    <p class="rodape">Seus dados são usados apenas para o atendimento.</p>
+  </div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getFirestore, doc, getDoc, addDoc, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey:  "AIzaSyAdDrbZHf93zdvY3TqdUYkqTcFOJmJhLw4",
+  authDomain:  "rastreamento-ad456.firebaseapp.com",
+  projectId: "rastreamento-ad456",
+  appId: "1:212558087501:web:a00e808856f7e80ae62304"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+function sanitize(str) {
+  const d = document.createElement("div");
+  d.textContent = String(str ?? "");
+  return d.innerHTML;
+}
+
+// ID da empresa vem por query string: lead.html?e=ID_DA_EMPRESA
+const params = new URLSearchParams(window.location.search);
+const empresaId = params.get("e");
+
+let empresaAtual = null;
+
+async function carregarEmpresa() {
+  const estadoInicial = document.getElementById("estadoInicial");
+
+  if (!empresaId) {
+    estadoInicial.innerHTML = `<p>Link inválido. Peça um novo QR Code para a empresa ❌</p>`;
+    return;
+  }
+
+  try {
+    const snap = await getDoc(doc(db, "empresas", empresaId));
+    if (!snap.exists()) {
+      estadoInicial.innerHTML = `<p>Empresa não encontrada ❌</p>`;
+      return;
+    }
+
+    const d = snap.data();
+
+    if (!d.rastreamentoAtivo) {
+      estadoInicial.innerHTML = `<p>Este link não está disponível no momento ❌</p>`;
+      return;
+    }
+
+    // O número de WhatsApp é único, do Clube — não da empresa individual.
+    const configSnap = await getDoc(doc(db, "configuracoes", "geral"));
+    const whatsappClube = configSnap.exists() ? configSnap.data().whatsappClube : null;
+
+    if (!whatsappClube) {
+      estadoInicial.innerHTML = `<p>Atendimento ainda não configurado. Tente novamente mais tarde ❌</p>`;
+      return;
+    }
+
+    // nomeExibicao é o nome "bonito", com acento — preenchido manualmente no
+    // ADM porque o nome de cadastro vem do e-mail e não tem acentuação.
+    const nomeParaMostrar = d.nomeExibicao || d.nome || "Empresa";
+    empresaAtual = { id: empresaId, nome: nomeParaMostrar, whatsapp: whatsappClube };
+
+    document.getElementById("nomeEmpresa").textContent = empresaAtual.nome;
+    document.title = empresaAtual.nome;
+
+    estadoInicial.style.display = "none";
+    document.getElementById("conteudoLead").style.display = "flex";
+
+    // Foco automático no campo, exceto em telas pequenas (evita abrir teclado sem o usuário pedir)
+    if (window.innerWidth > 480) {
+      document.getElementById("nomeLead").focus();
+    }
+  } catch (e) {
+    console.error(e);
+    estadoInicial.innerHTML = `<p>Erro ao carregar. Tente novamente ❌</p>`;
+  }
+}
+
+function dataHoraAgora() {
+  const agora = new Date();
+  return {
+    data: agora.toLocaleDateString("pt-BR"),
+    hora: agora.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" })
+  };
+}
+
+window.continuar = async function () {
+  const erro = document.getElementById("erroMsg");
+  const btn  = document.getElementById("btnContinuar");
+  const input = document.getElementById("nomeLead");
+  const nome = input.value.trim();
+
+  erro.textContent = "";
+
+  if (!empresaAtual) return;
+  if (!nome) {
+    erro.textContent = "Digite seu nome para continuar.";
+    input.focus();
+    return;
+  }
+  if (nome.length < 2) {
+    erro.textContent = "Nome muito curto.";
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = "Abrindo WhatsApp...";
+
+  const { data, hora } = dataHoraAgora();
+
+  try {
+    await addDoc(collection(db, "leads"), {
+      empresa: empresaAtual.id,
+      empresaNome: empresaAtual.nome,
+      nome,
+      data,
+      hora,
+      criadoEm: serverTimestamp()
+    });
+  } catch (e) {
+    console.error("Erro ao salvar lead:", e);
+    // Mesmo se falhar o registro, não bloqueia o lead de ir pro WhatsApp.
+  }
+
+  const mensagem = `Olá, me chamo ${nome} e vim da ${empresaAtual.nome} 👋`;
+  const numero = String(empresaAtual.whatsapp).replace(/\D/g, "");
+  const urlWhats = `https://wa.me/${numero}?text=${encodeURIComponent(mensagem)}`;
+
+  window.location.href = urlWhats;
+
+  // Caso o navegador bloqueie o redirect automático, libera o botão de novo.
+  setTimeout(() => {
+    btn.disabled = false;
+    btn.textContent = "Continuar";
+  }, 4000);
+};
+
+document.getElementById("nomeLead")?.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") window.continuar();
+});
+
+carregarEmpresa();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+
+<title>Painel Empresa</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- SAIR -->
+<button class="voltar" onclick="sair()">← Sair</button>
+
+<h2>Procurar Usuário</h2>
+
+<!-- BUSCA -->
+<section class="codigo">
+
+  <div class="estado-box">
+    <select id="listaEstados">
+      <option value="">UF</option>
+      <option value="MA">MA</option>
+      <option value="RJ">RJ</option>
+      <option value="MG">MG</option>
+      <option value="BA">BA</option>
+      <option value="SP">SP</option>
+      <option value="PI">PI</option>
+      <option value="CE">CE</option>
+      <option value="PA">PA</option>
+    </select>
+  </div>
+
+  <span class="traco">-</span>
+
+  <input id="c1" maxlength="1" inputmode="numeric">
+  <input id="c2" maxlength="1" inputmode="numeric">
+  <input id="c3" maxlength="1" inputmode="numeric">
+  <input id="c4" maxlength="1" inputmode="numeric">
+  <input id="c5" maxlength="1" inputmode="numeric">
+  <input id="c6" maxlength="1" inputmode="numeric">
+
+</section>
+
+<button class="btn btn-primary" onclick="buscar()">
+  Procurar usuário
+</button>
+
+<div class="linha"></div>
+
+<p id="msg" class="msg"></p>
+
+<!-- ÚLTIMAS VALIDAÇÕES -->
+<section id="ultimasValidacoes" class="ultimos-clientes">
+
+  <!-- TOPO -->
+  <div class="titulo-historico topo-validacoes">
+
+    <div class="titulo-esquerda">
+      <h3>Últimas validações</h3>
+      <p>Clientes com uso recente</p>
+    </div>
+
+  </div>
+
+  <!-- ALERTAS AUTOMÁTICOS -->
+  <div id="painelBeneficios">
+
+    <!-- BRINDES -->
+    <div id="boxBrindes"></div>
+
+    <!-- SORTEIO -->
+    <div id="boxSorteio"></div>
+
+  </div>
+
+  <!-- LISTA NORMAL -->
+  <div id="listaUltimos">
+    Carregando...
+  </div>
+
+</section>
+
+<!-- MODAL CONFIG EMPRESA -->
+<section id="modalConfigEmpresa" class="modal hidden">
+
+  <div class="modal-box">
+
+    <div class="modal-topo">
+
+      <h3>Configurações</h3>
+
+      <button class="fechar-modal" onclick="fecharConfigEmpresa()">
+        ✕
+      </button>
+
+    </div>
+
+    <div class="config-box">
+
+      <!-- BRINDE -->
+      <div class="campo-config">
+
+        <label>Ativar brinde</label>
+
+        <select id="cfgBrinde">
+          <option value="true">Sim</option>
+          <option value="false">Não</option>
+        </select>
+
+      </div>
+
+      <!-- META BRINDE -->
+      <div class="campo-config">
+
+        <label>Compras para ganhar</label>
+
+        <input type="number" id="cfgMetaBrinde" value="10">
+
+      </div>
+
+      <!-- SORTEIO -->
+      <div class="campo-config">
+
+        <label>Ativar sorteio</label>
+
+        <select id="cfgSorteio">
+          <option value="true">Sim</option>
+          <option value="false">Não</option>
+        </select>
+
+      </div>
+
+      <!-- META SORTEIO -->
+      <div class="campo-config">
+
+        <label>Compras para sorteio</label>
+
+        <input type="number" id="cfgMetaSorteio" value="10">
+
+      </div>
+
+      <!-- QUANTIDADE -->
+      <div class="campo-config">
+
+        <label>Clientes necessários</label>
+
+        <input type="number" id="cfgQtdSorteio" value="5">
+
+      </div>
+
+      <button class="btn btn-primary" onclick="salvarConfigEmpresa()">
+        Salvar configurações
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- MODAL DETALHES -->
+<section id="modalDetalhes" class="modal hidden">
+
+  <div class="modal-box">
+
+    <div class="modal-topo">
+
+      <h3>Histórico detalhado</h3>
+
+      <button class="fechar-modal" onclick="fecharDetalhes()">
+        ✕
+      </button>
+
+    </div>
+
+    <div id="conteudoDetalhes">
+      Nenhum detalhe encontrado
+    </div>
+
+  </div>
+
+</section>
+
+<!-- FEEDBACK -->
+
+
+<!-- RESULTADO -->
+<section id="resultado">
+
+  <div class="card hidden" id="card">
+
+    <!-- VOLTAR CARD -->
+    <button class="seta-voltar-card" onclick="voltarCard()">
+      ←
+    </button>
+
+    <!-- TOPO -->
+    <div class="card-content">
+
+      <!-- PERFIL -->
+      <div class="perfil-box">
+
+        <img
+          id="foto"
+          src="https://via.placeholder.com/100"
+          alt="Foto do cliente">
+
+        <div class="info">
+
+          <h3 id="nome">Nome do Cliente</h3>
+
+          <p id="id">ID: ---</p>
+
+          <p id="status" class="status ativo">Ativo</p>
+
+        </div>
+
+      </div>
+
+<!-- MÉTRICAS -->
+      <div class="metrics">
+
+        <div class="metric destaque">
+          <strong id="totalCompras">R$ 0,00</strong>
+          <span>Total em compras</span>
+        </div>
+
+        <div class="metric">
+          <strong id="usos">0</strong>
+          <span>Utilizações</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- VALIDAR -->
+    <div class="validar-box">
+
+      <h3>Validar benefício</h3>
+
+      <div class="validar-grid">
+
+        <!-- VALOR -->
+        <div class="campo-box">
+
+          <label for="valor">Valor da venda</label>
+
+          <input
+            id="valor"
+            type="text"
+            inputmode="numeric"
+            placeholder="R$ 0,00">
+
+        </div>
+
+        <!-- DESCONTO -->
+        <div class="campo-box">
+
+          <label for="tipoDesconto">Desconto</label>
+
+          <div class="select-wrap">
+
+            <select id="tipoDesconto">
+              <option value="">Selecionar</option>
+              <option value="5">5%</option>
+              <option value="10">10%</option>
+              <option value="15">15%</option>
+              <option value="20">20%</option>
+              <option value="manual">Digitar</option>
+            </select>
+
+            <span class="seta">⌄</span>
+
+          </div>
+
+          <input
+            id="desconto"
+            type="text"
+            placeholder="00%"
+            style="display:none;">
+
+        </div>
+
+        <!-- TOTAL -->
+        <div class="campo-box">
+
+          <label for="total">Total final</label>
+
+          <input
+            id="total"
+            type="text"
+            disabled
+            placeholder="R$ 0,00">
+
+        </div>
+
+      </div>
+
+      <!-- INFO DESCONTO -->
+      <div class="desconto-info" id="infoDesconto">
+        Desconto aplicado: R$ 0,00 (0%)
+      </div>
+
+      <!-- BOTÃO VALIDAR -->
+      <div class="acoes-validar">
+
+        <button class="btn btn-success" onclick="validar()">
+          Validar
+        </button>
+
+      </div>
+
+    </div>
+
+    <!-- HISTÓRICO -->
+    <div class="historico-box">
+
+      <table class="tabela">
+
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Hora</th>
+            <th>Valor</th>
+            <th>Desc.</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+
+        <tbody id="listaHistorico">
+
+          <tr class="empty">
+            <td colspan="5">Nenhum registro encontrado</td>
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- SUCESSO -->
+<section class="sucesso hidden" id="sucesso">
+
+  <div class="sucesso-box">
+
+    <div class="sucesso-icone-wrap">
+      <div class="sucesso-anel"></div>
+      <div class="sucesso-icone">
+        <svg viewBox="0 0 24 24" width="34" height="34" fill="none">
+          <path d="M5 13l4 4L19 7" stroke="#0a0a0a" stroke-width="3"
+            stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <h1>Benefício validado</h1>
+    <p class="sucesso-sub">O desconto do cliente foi aplicado com sucesso.</p>
+
+    <button class="btn btn-primary" onclick="voltar()">
+      Voltar
+    </button>
+
+  </div>
+
+</section>
+
+<!-- SCRIPT -->
+<script type="module" src="script.js"></script>
+
+</body>
+</html>
